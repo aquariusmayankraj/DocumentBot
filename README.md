@@ -120,9 +120,8 @@ GROQ_API_KEY = "your_api_key_here"
 
 ## Author
 
-Mayank Raj
-B.Tech
-Mathematics and Computing
+**Mayank Raj**  
+B.Tech Mathematics and Computing  
 ironheart.mayank@gmail.com
 
 ---
