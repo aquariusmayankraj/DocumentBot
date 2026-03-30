@@ -121,8 +121,9 @@ GROQ_API_KEY = "your_api_key_here"
 ## Author
 
 Mayank Raj
-Co-founder @ Adaciral
-B.Tech Student | AI/ML Enthusiast
+B.Tech
+Mathematics and Computing
+ironheart.mayank@gmail.com
 
 ---
 
