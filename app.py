@@ -7,6 +7,7 @@ def load_css():
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 load_css()
+st.set_page_config(page_title="DocumentBot", page_icon="🤖", layout="wide")
 
 st.markdown("## 🤖 DocumentBot - Ask Anything from Your Documents")
 
