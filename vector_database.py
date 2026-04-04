@@ -1,18 +1,18 @@
 from langchain_community.document_loaders import PDFPlumberLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_ollama import OllamaEmbeddings
+from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 import tempfile
 import os
 
-OLLAMA_MODEL = "deepseek-r1:1.5b"
 
-
+# 🔹 Load PDF
 def load_pdf(file_path):
     loader = PDFPlumberLoader(file_path)
     return loader.load()
 
 
+# 🔹 Split into chunks
 def create_chunks(documents):
     text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=1000,
@@ -21,29 +21,35 @@ def create_chunks(documents):
     return text_splitter.split_documents(documents)
 
 
+# 🔹 Embedding model (Cloud compatible)
 def get_embedding_model():
-    return OllamaEmbeddings(model=OLLAMA_MODEL)
+    return HuggingFaceEmbeddings(
+        model_name="sentence-transformers/all-MiniLM-L6-v2"
+    )
 
 
-
+# 🔹 Create FAISS DB from uploaded file
 def create_db_from_uploaded_file(uploaded_file):
-    """
-    Creates FAISS DB from uploaded PDF (dynamic)
-    """
-    
     with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp_file:
         tmp_file.write(uploaded_file.read())
         temp_path = tmp_file.name
 
     try:
+        # Load PDF
         documents = load_pdf(temp_path)
 
+        # Split into chunks
         chunks = create_chunks(documents)
 
-        db = FAISS.from_documents(chunks, get_embedding_model())
+        # Create vector DB
+        db = FAISS.from_documents(
+            chunks,
+            embedding=get_embedding_model()
+        )
 
         return db
 
     finally:
-
-        os.remove(temp_path)
+        # Clean up temp file
+        if os.path.exists(temp_path):
+            os.remove(temp_path)

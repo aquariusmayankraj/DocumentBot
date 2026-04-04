@@ -12,6 +12,7 @@ llm_model = ChatGroq(
     api_key=api_key
 )
 
+
 def get_context(documents):
     return "\n\n".join([doc.page_content for doc in documents])
 
@@ -32,7 +33,9 @@ def answer_query(documents, query):
     prompt = ChatPromptTemplate.from_template(prompt_template)
     chain = prompt | llm_model
 
-    return chain.invoke({
+    response = chain.invoke({
         "question": query,
         "context": context
     })
+
+    return response.content
