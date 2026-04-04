@@ -1,7 +1,7 @@
 # DocumentBot – AI-Powered Document Q&A Assistant
 
 **Live Demo:**
-https://documentbot-dhukxbadfcdxjpusfy2dc6.streamlit.app/
+https://documentbot-cobivsbtkskgqbqrbynr6u.streamlit.app
 
 ---
 
